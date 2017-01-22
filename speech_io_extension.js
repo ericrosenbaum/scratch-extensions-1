@@ -32,7 +32,7 @@ new (function() {
             recognition.stop();
             recognized_speech = '';
             callback();
-        }, 5000);
+        }, 10 * 1000);
 
         recognition.onresult = function(event) {
             clearTimeout(tookTooLong);
