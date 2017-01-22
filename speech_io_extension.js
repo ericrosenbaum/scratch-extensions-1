@@ -30,6 +30,7 @@ new (function() {
 
         var tookTooLong = window.setTimeout(function() {
             recognition.stop();
+            recognized_speech = '';
             callback();
         }, 5000);
 
@@ -41,6 +42,7 @@ new (function() {
                 callback();
             } else {
                 console.log('speech recognition failed');
+                recognized_speech = '';
                 callback();
             }
         };
