@@ -13,6 +13,7 @@ new (function() {
         var u = new SpeechSynthesisUtterance(text.toString());
         u.voice = window.speechSynthesis.getVoices()[26]; // "junior" voice
         u.onend = function(event) {
+            clearTimeout(tookTooLong);
             callback();
         };
         
