@@ -1,5 +1,7 @@
-/* Extension using the JavaScript Speech API for speech to text */
-/* Sayamindu Dasgupta <sayamindu@media.mit.edu>, April 2014 */
+/*  Speech input/output extension
+    based on speech to text and text to speech extensions 
+    by Sayamindu Dasgupta <sayamindu@media.mit.edu> 
+*/
 
 new (function() {
     var ext = this;
