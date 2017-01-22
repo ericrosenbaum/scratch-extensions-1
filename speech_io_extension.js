@@ -7,22 +7,40 @@ new (function() {
     var ext = this;
     
     var recognized_speech = '';
+    var recognition = new webkitSpeechRecognition();
 
     ext.speak_text = function (text, callback) {
         var u = new SpeechSynthesisUtterance(text.toString());
+        u.voice = window.speechSynthesis.getVoices()[26]; // "junior" voice
         u.onend = function(event) {
-            if (typeof callback=="function") callback();
+            callback();
         };
         
         speechSynthesis.speak(u);
+
+        var tookTooLong = window.setTimeout(function() {
+            callback();
+        }, 5000);
+
     };
 
     ext.recognize_speech = function (callback) {
-        var recognition = new webkitSpeechRecognition();
+        console.log('speech recognition started');
+
+        var tookTooLong = window.setTimeout(function() {
+            recognition.stop();
+            callback();
+        }, 5000);
+
         recognition.onresult = function(event) {
+            clearTimeout(tookTooLong);
             if (event.results.length > 0) {
                 recognized_speech = event.results[0][0].transcript;
-                if (typeof callback=="function") callback();
+                console.log('speech recognition result: ' + recognized_speech);
+                callback();
+            } else {
+                console.log('speech recognition failed');
+                callback();
             }
         };
         recognition.start();
